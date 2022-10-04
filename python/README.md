@@ -62,7 +62,7 @@ Each transformer encoder layers follow like this:
 7. Residual Conection - Add MLP output (4) to Residual Connection (2)
 
 
-# Multiheaded Self Attention Block
+## Multiheaded Self Attention Block
 Self Attention is finding the similarity between inputs of a sequence. This is done by first generating Queries, Keys, and Values (q, k, v), determining their attention scores, and then passing it through a final linear layer. In order to view the image globally and locally, multiple heads (h) are used. This adds an extra concatenation step before passing it through the last linear layer. 
 
 ### Step 1: Generating Queries, Keys, and Values
@@ -85,7 +85,7 @@ It is important to remember that there are h instances of this. In order to make
 The final concantenated vector is then passed through a trainable linear layer. 
 
 
-# MLP Block
+## MLP Block
 The MLP block consists of 2 layers. The size of the hidden layer is mlp_ratio times the output layer.
 
 
