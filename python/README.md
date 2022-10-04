@@ -47,17 +47,23 @@ Before each input, a layer normalization takes place, and after each output, a r
 
 Each transformer encoder layers follow like this: 
 1. Embedded Patches (1) 
-            ↓↓↓↓
+<br></br>↓↓↓↓<br></br>
+
 2. Normalization Layer 
-            ↓↓↓↓
+<br></br>↓↓↓↓<br></br>
+
 3. Multiheaded Self Attention (MSA)
-            ↓↓↓↓
+<br></br>↓↓↓↓<br></br>
+
 4. Residual Connection (2) - Sum MSA output and Embedded Patches (1) 
-            ↓↓↓↓
+<br></br>↓↓↓↓<br></br>
+
 5. Normalization Layer 
-            ↓↓↓↓
+<br></br>↓↓↓↓<br></br>
+
 6. MLP 
-            ↓↓↓↓
+<br></br>↓↓↓↓<br></br>
+
 7. Residual Conection - Add MLP output to Residual Connection (2)
 
 
