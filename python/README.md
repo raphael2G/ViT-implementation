@@ -34,10 +34,6 @@ In addition to each linearized patch, an initial CLS token is passed through the
 
 
 # Transformer Encoder
-
-1. Mutliheaded Self Attention (MSA)
-2. MLP
-
 Before each input, a layer normalization takes place, and after each output, a residual connection takes place. 
 
 Each transformer encoder layers follow like this: 
