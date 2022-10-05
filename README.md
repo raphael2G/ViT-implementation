@@ -1,5 +1,5 @@
 # ViT-tfjs
-Vision Transformer architecture implemented in tensorflow js
+Vision Transformer architecture implemented in tensorflow, and tensorflow js. This allows for model training in python, then model uploading to js, enabling live, client side inferences on the web. 
 
 # Papers
 This implementation of the ViT is based off of https://arxiv.org/pdf/2010.11929.pdf which extends https://arxiv.org/pdf/1706.03762.pdf
