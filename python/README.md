@@ -11,11 +11,11 @@ encoder. In order to perform classification, we use the standard approach of add
 'classification token' to the sequence"
 
 ### Parameters
-image_size - size of the input images
-n_of_patches - number of patches that the image will be split into + 1 cls token
-hidden_dimension - sets the dimension of the patch embeddings that enter into transformer
-mlp_ratio - ratio between the size of the hidden layer and output layer in the MLP block
-n_heads - number of heads in the Multi-headed Self Attention Block
+image_size - size of the input images <br></br>
+n_of_patches - number of patches that the image will be split into + 1 cls token <br></br>
+hidden_dimension - sets the dimension of the patch embeddings that enter into transformer <br></br>
+mlp_ratio - ratio between the size of the hidden layer and output layer in the MLP block <br></br>
+n_heads - number of heads in the Multi-headed Self Attention Block <br></br>
 
 
 # Formatting Images
