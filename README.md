@@ -1,6 +1,7 @@
 # ViT-tfjs
-Vision Transformer architecture implemented in tensorflow js
+Vision Transformer architecture implemented in tensorflow, and tensorflow js. This allows for model training in python, then model uploading to js, enabling live, client side inferences on the web. 
 
+<<<<<<< HEAD
 # ViT Explained
 A vision transformer (ViT) is an image classification architecture that has proved to achieve SOTA results.
 Initialy created for use in NLP, a variety of steps and modifications to the self-attention NLP transformer were made for creating inferences on images. 
@@ -91,10 +92,13 @@ A classification token was implemented in the original ViT paper (other implemen
 
 ### Position Vector
 A position vector is combined with each patch post embedding. The purpose of this is to restore spatial continuity before being passed through the encoder. 
+=======
+# Papers
+This implementation of the ViT is based off of https://arxiv.org/pdf/2010.11929.pdf which extends https://arxiv.org/pdf/1706.03762.pdf
+>>>>>>> 5e1d9b203826c5161c64539acdd8dada81302b7b
 
 # Resources
 A lot of resources went into making this. I've tried to list all the ones that helped me here. 
 1. https://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention/
 2. http://peterbloem.nl/blog/transformers
 3. http://nlp.seas.harvard.edu/annotated-transformer/#prelims
-4. 
