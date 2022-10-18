@@ -94,13 +94,17 @@ A classification token was implemented in the original ViT paper (other implemen
 ### Position Vector
 A position vector is combined with each patch post embedding. The purpose of this is to restore spatial continuity before being passed through the encoder. 
 
+# To Do List
+1. Create final custom blocks to allow for ViT conversion from tf to tfjs
+2. Create Gelu Activation Function in javascript
+3. Javascript Training Loop for native tfjs training
 
 # Papers
 This implementation of the ViT is based off of https://arxiv.org/pdf/2010.11929.pdf which extends https://arxiv.org/pdf/1706.03762.pdf
-
 
 # Resources
 A lot of resources went into making this. I've tried to list all the ones that helped me here. 
 1. https://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention/
 2. http://peterbloem.nl/blog/transformers
 3. http://nlp.seas.harvard.edu/annotated-transformer/#prelims
+4. Gelu Activation Function Paper: https://arxiv.org/pdf/1606.08415.pdf
