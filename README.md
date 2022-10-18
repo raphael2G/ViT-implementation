@@ -93,8 +93,11 @@ A classification token was implemented in the original ViT paper (other implemen
 
 ### Position Vector
 A position vector is combined with each patch post embedding. The purpose of this is to restore spatial continuity before being passed through the encoder. 
+
+
 # Papers
 This implementation of the ViT is based off of https://arxiv.org/pdf/2010.11929.pdf which extends https://arxiv.org/pdf/1706.03762.pdf
+
 
 # Resources
 A lot of resources went into making this. I've tried to list all the ones that helped me here. 
