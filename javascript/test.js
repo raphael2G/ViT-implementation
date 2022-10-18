@@ -1,29 +1,33 @@
-function test_model(input_shape) {
+// define unsupported layers as custom js layers
+class gelu extends tf.layers.Layer {
+    static className = 'gelu';
+ 
+    constructor(config) {
+      super(config);
+    }
 
-    const input = tf.input({shape: input_shape});
+    call(features) {
+      // return 0.5 * features * 
+      // (1.0 + Math.tanh(0.7978845608028654 * 
+      //   (features + 0.044715 * 
+      //   Math.pow(features, 3))))
+      return features
+    }
+ }
+ tf.serialization.registerClass(gelu);
 
-    const block1 = test_block(input_shape, 10, 20);
-    const block2 = test_block(20, 10, 5);
 
-    const output = block2.apply(block1.apply(input));
-    const model = tf.model({inputs: input, outputs: output});
-    return model;
-}
+//  const data_augmentation = await tf.loadLayersModel('../savedModels/ViT/tfjs/data_augmentation/model.json');
+const subModel = await tf.loadLayersModel('../savedModels/ViT/tfjs/subModel/model.json');
+subModel.summary()
 
-function test_block(input_dim, hidden_dim, output_dim) {
-    const model = tf.sequential();
+const dummy_input = tf.ones([10, 49, 8])
+const output = subModel.predict(dummy_input)
+output.print()
 
-    model.add(tf.layers.dense({units: hidden_dim, inputShape: input_dim}));
-    model.add(tf.layers.dense({units: output_dim}));
 
-    return model;
-}   
 
-const input_shape = 2;
-const dummy_data = tf.ones([10, input_shape])
 
-const model = test_model(input_shape, 5, 10, 15, 3)
-console.log(model.predict(dummy_data).arraySync())
-model.summary()
+
 
 
