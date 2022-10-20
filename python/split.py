@@ -1,4 +1,3 @@
-import tensorflowjs as tfjs
 from tensorflow import keras
 
 def split_keras_model(model, index):
@@ -20,10 +19,10 @@ def split_keras_model(model, index):
     print('-- -- -- -- -- FULL MODEL -- -- -- -- --')
     model.summary()
 
-    print('-- -- -- - FEATURE EXTRACTION - -- -- --')
+    print('-- -- -- - SUB MODEL 1 - -- -- --')
     model1.summary()
 
-    print('-- -- -- -- - DENSE LAYERS - -- -- -- --')
+    print('-- -- -- -- - SUB MODEL 2 - -- -- -- --')
     model2.summary()
 
     return (model1, model2)
