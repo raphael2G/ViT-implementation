@@ -162,7 +162,7 @@ def mlp_head(mlp_head_units, num_classes):
     return model
 
 # ViT Instantiation
-def create_vit_classifier_custom(
+def create_vit(
                 image_size = 224,
                 n_channels = 3,
                 patch_size = 32,
@@ -265,7 +265,7 @@ def save_models(model, index=3, saveModel=False, saveSplit=False, saveTFJS=False
 
 
 # # Proof the code works and data can be passed through
-# ViT_custom = create_vit_classifier_custom(
+# ViT_custom = create_vit(
 #                         image_size = 224,
 #                         n_channels = 3,
 #                         patch_size = 32,
@@ -281,7 +281,7 @@ def save_models(model, index=3, saveModel=False, saveSplit=False, saveTFJS=False
 
 
 # #Save TFJS convertable componenet
-# model = create_vit_classifier_custom()
+# model = create_vit()
 # print(model(tf.ones([1, 224, 224, 3])))
 # model.summary()
 # save_models(model, saveTFJS=True)
@@ -315,7 +315,7 @@ def save_models(model, index=3, saveModel=False, saveSplit=False, saveTFJS=False
 
 
 # #Plot model and save TFJS portable component
-# model = create_vit_classifier_custom()
+# model = create_vit()
 # plot_models(model, 0)
 # save_models(model, saveModel=False, saveSplit=False, saveTFJS=True)
 
