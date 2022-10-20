@@ -1,7 +1,3 @@
-import tensorflow as tf
-from tensorflow.keras import layers, Sequential, Functional
-import math
-
 '''
 input images
 patchify images --> py and js function needed
