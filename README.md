@@ -1,7 +1,12 @@
 # ViT-tfjs
 Vision Transformer architecture implemented in tensorflow so that it can be converted over to TFJS with minimal rewritten code. <br>
 ViT model will be comprised of multiple sub models (blocks). Majority of the blocks (architectures and weights) can be converted to TFJS, while the rest of the model's architecture can be remade in TFJS, with their weights being updated independently. <br>
-Becuase whole model conversion does not seem to be possible, this approach minimizes the amount of code duplication between python and javascript. 
+Becuase whole model conversion does not seem to be feasible, this approach minimizes the amount of code duplication between python and javascript.   <br>
+
+
+# API 
+We're creating an API to enable inferences from javascript using python trained models. TFJS is limited in its serialization and implementation when compared to tensorflow on python. 
+
 
 # ViT Explained
 A vision transformer (ViT) is an image classification architecture that has proved to achieve SOTA results.
