@@ -8,21 +8,21 @@ import tensorflowjs as tfjs
 This is where the completed ViT will be made.
 '''
 
-# Parameters in Here
-image_size = 28
-n_channels = 1
-patch_size = 4
-n_patches = (image_size // patch_size) ** 2
-assert (image_size % patch_size == 0), 'image_size must be divisible by patch_size'
-projection_dim = 8
-transformer_layers = 2
-num_heads = 8
-transformer_units = [
-    projection_dim * 2,
-    projection_dim,
-] 
-num_classes = 10
-mlp_head_units = [2048, 1024]
+# # Parameters in Here
+# image_size = 224
+# n_channels = 3
+# patch_size = 32
+# n_patches = (image_size // patch_size) ** 2
+# assert (image_size % patch_size == 0), 'image_size must be divisible by patch_size'
+# projection_dim = 8
+# transformer_layers = 2
+# num_heads = 8
+# transformer_units = [
+#     projection_dim * 2,
+#     projection_dim,
+# ] 
+# num_classes = 10
+# mlp_head_units = [2048, 1024]
 
 # MLP Definition Function
 def mlp(x, hidden_units, dropout_rate):
@@ -32,18 +32,21 @@ def mlp(x, hidden_units, dropout_rate):
     return x
 
 # Data Augmentation Block
-data_augmentation = tf.keras.Sequential(
-    [
-        layers.Normalization(),
-        layers.Resizing(image_size, image_size),
-        layers.RandomFlip("horizontal"),
-        layers.RandomRotation(factor=0.02),
-        layers.RandomZoom(
-            height_factor=0.2, width_factor=0.2
-        ),
-    ],
-    name="data_augmentation",
-)
+def create_data_augmentation_block(image_size):
+    data_augmentation = tf.keras.Sequential(
+        [
+            layers.Normalization(),
+            layers.Resizing(image_size, image_size),
+            layers.RandomFlip("horizontal"),
+            layers.RandomRotation(factor=0.02),
+            layers.RandomZoom(
+                height_factor=0.2, width_factor=0.2
+            ),
+        ],
+        name="data_augmentation",
+    )
+
+    return data_augmentation
 
 # Patch Creation Block
 class Patches(layers.Layer):
@@ -111,7 +114,7 @@ def create_msa_block(transformer_block_n, n_heads, projection_dim, key_dim, name
     return MSA_block
 
 # Transformer Encoder Creation
-def create_transformer_block(input_shape, transformer_layers):
+def create_transformer_block(input_shape, transformer_layers, transformer_dense_units, num_heads, projection_dim):
     # input to this block is patch embeddings
     # input_shape is the shape of the patch embeddings. Must be a tuple
     input = tf.keras.Input(shape=input_shape, name='Transformer_Block_Input')
@@ -131,7 +134,7 @@ def create_transformer_block(input_shape, transformer_layers):
         dropout_rate = 0.1        
         layer_norm_2 = layers.LayerNormalization(epsilon=1e-6, name='Layer_Norm_2_%i'%_)(residual_connection_1)
         # create as many sections in transformer_units
-        for index, units in enumerate(transformer_units):
+        for index, units in enumerate(transformer_dense_units):
             try: 
                 mlp = layers.Dense(units, activation=tf.nn.gelu, name='Dense_%i'%index + '_%i'%_)(layer_norm_2)
             except: 
@@ -145,7 +148,7 @@ def create_transformer_block(input_shape, transformer_layers):
     return transformer_encoder_block
 
 # MLP Classifier Creation
-def mlp_head():
+def mlp_head(mlp_head_units, num_classes):
     model = tf.keras.Sequential([
         tf.keras.Input(shape=(49, 8), name='MLP_Head_Input'),
         layers.LayerNormalization(epsilon=1e-6),
@@ -163,26 +166,31 @@ def create_vit_classifier_custom(
                 image_size = 224,
                 n_channels = 3,
                 patch_size = 32,
-                n_patches = (image_size // patch_size) ** 2,
                 projection_dim = 8,
                 transformer_layers = 2,
                 num_heads = 8,
-                transformer_units = [
-                    projection_dim * 2,
-                    projection_dim],
                 num_classes = 2,
                 mlp_head_units = [2048, 1024]
             ):
 
+    n_patches = (image_size // patch_size) ** 2
     assert (image_size % patch_size == 0), 'image_size must be divisible by patch_size'
+
+
+    
+    transformer_dense_units = [
+                    projection_dim * 2,
+                    projection_dim]
+
+
     
     model = tf.keras.Sequential([
         layers.Input(shape=(image_size, image_size, n_channels)),
-        data_augmentation, 
+        create_data_augmentation_block(image_size), 
         Patches(patch_size),
         PatchEncoder(n_patches, projection_dim),
-        create_transformer_block((n_patches, projection_dim), transformer_layers),
-        mlp_head()
+        create_transformer_block((n_patches, projection_dim), transformer_layers, transformer_dense_units, num_heads, projection_dim),
+        mlp_head(mlp_head_units, num_classes)
     ], name='Vision_Transformer')
 
     return model
@@ -254,6 +262,22 @@ def save_models(model, index=3, saveModel=False, saveSplit=False, saveTFJS=False
             print(e)
             print('Submodel Conversion Failed')
             print('Ensure model is split at valid index for TFJS conversion')
+
+
+# # Proof the code works and data can be passed through
+# ViT_custom = create_vit_classifier_custom(
+#                         image_size = 224,
+#                         n_channels = 3,
+#                         patch_size = 32,
+#                         projection_dim = 8,
+#                         transformer_layers = 2,
+#                         num_heads = 8,
+#                         num_classes = 2,
+#                         mlp_head_units = [2048, 1024]
+#                     )
+
+# dummy_input = tf.ones([10, 224, 224, 3])
+# print(ViT_custom(dummy_input))
 
 
 # #Save TFJS convertable componenet
